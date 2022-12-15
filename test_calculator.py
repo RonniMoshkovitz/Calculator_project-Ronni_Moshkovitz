@@ -8,6 +8,7 @@ Pytest testing for the calculator.
 def test_syntax_errors():
     """
     This function tests syntax errors.
+    :return: None.
     """
     test_cases = ["2+*7", "4--(9", "5#4", "8(7)", "12..12"]
     for equation, result in map(solve_equation, test_cases):
@@ -18,6 +19,7 @@ def test_syntax_errors():
 def test_nonsense():
     """
     This function tests a nonsense string as the equation input.
+    :return: None.
     """
     nonsense = "td-- 653eu+"
     _, result = solve_equation(nonsense)
@@ -28,6 +30,7 @@ def test_nonsense():
 def test_empty():
     """
     This function tests an empty string as the equation input.
+    :return: None.
     """
     empty = ""
     _, result = solve_equation(empty)
@@ -38,6 +41,7 @@ def test_empty():
 def test_white_space():
     """
     This function tests a white space string as the equation input.
+    :return: None.
     """
     white_space = "     "
     _, result = solve_equation(white_space)
@@ -48,6 +52,7 @@ def test_white_space():
 def test_simple():
     """
     This function tests simple equations.
+    :return: None.
     """
     test_cases = {"2*7": 14.0, "4-9": -5.0, "5*-4": -20.0, "8@(7)": 7.5, "123#": 6.0, "1.2+7": 8.2, "3!": 6.0,
                   "~12": -12.0, "12/4": 3.0, "13%10": 3.0, "2^3": 8.0, "4$6": 6.0, "-2&2": -2.0, "-123#": -6,
@@ -60,6 +65,7 @@ def test_simple():
 def test_complicated():
     """
     This function tests complicated equations (at least 20 symbols long).
+    :return: None.
     """
     test_cases = {"----2*(7--(6.3-2.6/2)! +   12$5)---~---3": 275.0,
                   "(4*------ --9 /(2&4)^2!) -100^3   ": -999991.0,

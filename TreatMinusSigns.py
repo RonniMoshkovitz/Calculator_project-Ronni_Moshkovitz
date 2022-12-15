@@ -2,7 +2,7 @@ import EquationReader as EquationReader
 from configuration import *
 
 """
-Module that treats the extra minus signs in the equation. It's main function 
+Utility module that treats the extra minus signs in the equation of an EquationReader. Its main function
 (edit_minuses_in_equation) gets an EquationReader object and edits its minuses according to the 2nd approach.
 """
 
@@ -18,10 +18,10 @@ SIGN_COUNT_DICT = {1: ("-", -1), 0: ("+", 1)}
 def insert_sign(equation: list[str or float], index: int, count: int) -> int:
     """
     The function attaches the sign to the operand in the given index (according to the amount of minuses found before).
-    :param equation: the equation that is edited
-    :param index: the operand's index
-    :param count: amount of minuses found
-    :return: the amount of minuses removed from the equation
+    :param equation: The equation that is edited.
+    :param index: The operand's index.
+    :param count: Amount of minuses found.
+    :return: The amount of minuses removed from the equation.
     """
     equation[index] *= SIGN_COUNT_DICT[count % 2][1]
     return count
@@ -30,10 +30,10 @@ def insert_sign(equation: list[str or float], index: int, count: int) -> int:
 def insert_operator(equation: list[str or float], index: int, count: int) -> int:
     """
     The function inserts the right operator in the given index (according to the amount of minuses found).
-    :param equation: the equation that is edited
-    :param index: the index to insert the operator
-    :param count: amount of minuses found
-    :return: the amount of operators removed from the equation
+    :param equation: The equation that is edited.
+    :param index: The index to insert the operator.
+    :param count: Amount of minuses found.
+    :return: The amount of operators removed from the equation.
     """
     equation.insert(index, SIGN_COUNT_DICT[count % 2][0])
     return count - 1
@@ -47,19 +47,19 @@ CONVERSION = {True: insert_sign, False: insert_operator}
 def is_sign_addition(equation: list[str or float], index: int) -> bool:
     """
     This function checks if the conversion is for operand sign.
-    :param equation: the equation that is edited
-    :param index: index of the variable before the first minus in the minus sequence
-    :return: True if the conversion is to operand sign, False otherwise (for operator conversion)
+    :param equation: The equation that is edited.
+    :param index: Index of the variable before the first minus in the minus sequence.
+    :return: True if the conversion is to operand sign, False otherwise (for operator conversion).
     """
     return index == -1 or equation[index] in POSSIBLE_VARS_BEFORE
 
 
 def is_minus_to_edit(var: float or str, right: float or str or None) -> bool:
     """
-    This function checks if the given viable is a minus that needs to be edited.
-    :param var: the equation var
-    :param right: the var to the right of the equation var
-    :return: True if is a minus that needs to be edited, False otherwise
+    This function checks if the given variable is a minus that needs to be edited.
+    :param var: The equation variable.
+    :param right: The variable to the right of the equation variable.
+    :return: True if is a minus that needs to be edited, False otherwise.
     """
     return var is MINUS_SIGN and type(right) is float
 
@@ -67,7 +67,8 @@ def is_minus_to_edit(var: float or str, right: float or str or None) -> bool:
 def edit_minuses_in_equation(eq_reader: EquationReader):
     """
     This function edits the minus signs in the equation reader's equation according to the 2nd approach.
-    :param eq_reader: equation reader to remove extra minuses from its equation
+    :param eq_reader: Equation reader to remove extra minuses from its equation.
+    :return: None.
     """
     equation = eq_reader.get_equation()
     i = len(equation) - 1
@@ -83,7 +84,7 @@ def edit_minuses_in_equation(eq_reader: EquationReader):
         # treats the minus signs if were found
         if count:
             to_insert = i + 1
-            # dose the conversion
+            # does the conversion
             count = CONVERSION[is_sign_addition(equation, i)](equation, to_insert, count)
             eq_reader.update_vars_in_index(to_insert, to_insert + count)
         i -= 1

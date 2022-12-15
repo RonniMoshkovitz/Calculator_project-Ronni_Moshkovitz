@@ -25,10 +25,10 @@ OPERATORS_FUNCS = {"+": (add, check_binary),
 def preform_operation(operator: str, index, *operands) -> float:
     """
     The function gets an operator and its matching operands, and preforms it.
-    :param operator: operator
-    :param index: index of the operator in the equation
-    :param operands: matching operands
-    :return:
+    :param operator: Operator.
+    :param index: Index of the operator in the equation.
+    :param operands: Matching operands.
+    :return: The operation calculation result.
     """
     check_operation(OPERATORS_FUNCS[operator][1], operator, index, *operands)
 

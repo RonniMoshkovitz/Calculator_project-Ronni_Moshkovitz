@@ -27,29 +27,28 @@ To exit, please enter: EXIT\n
 def get_input(msg: str) -> str:
     """
     The function shows the given message to the user, and gets his response input.
-    :param msg: message to show the user
-    :return: the user's input
+    :param msg: Message to show the user.
+    :return: The user's input.
     """
     try:
-        user_input = input(msg)
+        return input(msg)
     except (EOFError, KeyboardInterrupt) as e:
         display_info(f"{e} ---> exiting program...")
-        exit(1)
-
-    return user_input
+        exit(0)
 
 
 def get_equation() -> str:
     """
     This function asks the user to enter an equation, and returns the users equation input.
-    :return: the users equation string input
+    :return: The users equation string input.
     """
     return get_input("\nPlease enter your equation: ")
 
 
 def display_welcome_msg():
     """
-    This function shows the user the calculator's UI menu
+    This function shows the user the calculator's UI menu.
+    :return: None.
     """
     print(WELLCOME_MSG)
 
@@ -57,7 +56,8 @@ def display_welcome_msg():
 def display_info(info: str):
     """
     This function shows the user the given info
-    :param info: information to show the client
+    :param info: Information to show the user.
+    :return: None.
     """
     print(info)
 
@@ -65,8 +65,9 @@ def display_info(info: str):
 def display_solution(equation: str, solution: float):
     """
     This function shows the user the equation with its solution in an equation format.
-    :param equation: the read equation
-    :param solution: the equation's solution
+    :param equation: The read equation.
+    :param solution: The equation's solution.
+    :return: None.
     """
     display_info(f"{equation} = {solution}")
 
@@ -74,8 +75,9 @@ def display_solution(equation: str, solution: float):
 def display_exception(equation: str, exception: str):
     """
     This function shows the user the equation with the exception message for why it failed to execute.
-    :param equation: the read equation
-    :param exception: exception message
+    :param equation: The read equation.
+    :param exception: Exception message.
+    :return: None.
     """
     display_info(f"{equation} ---> {exception}")
     get_input("\npress ENTER to continue...\n")
@@ -88,9 +90,10 @@ DISPLAY = {float: display_solution, str: display_exception}
 
 def display_result(equation: str, result: float or str):
     """
-    This function gets the equation and the calculation result. It presents it to the client accordingly.
+    This function gets the equation and the calculation result. It presents it to the user accordingly.
     If failed to execute -> exception display. If managed to solve -> solution display.
-    :param equation: the read equation
-    :param result: equation's solution or exception message
+    :param equation: The equation (the list equation as string of equation variables separated by spaces).
+    :param result: Equation's solution or exception message.
+    :return: None.
     """
     DISPLAY[type(result)](equation, result)

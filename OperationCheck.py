@@ -1,7 +1,7 @@
 from CalculatorExceptions import *
 
 """
-Module containing all the operation validations (checks) for the supported operations on the calculator.
+Module containing all the operation validations for the supported operations on the calculator.
 The main function (check_operations preforms the validation according to the given parameters,
 and raises exceptions if needed.
 """
@@ -10,8 +10,8 @@ and raises exceptions if needed.
 def check_binary(operand_a: float, operand_b: float) -> str or None:
     """
     The function checks if the operands given are operands.
-    :param operand_a: first operand
-    :param operand_b: second operand
+    :param operand_a: First operand.
+    :param operand_b: Second operand.
     :return: None if the operands are valid, otherwise the exception code of missing operand.
     """
     if not (is_operand(operand_a) and is_operand(operand_b)):
@@ -21,7 +21,7 @@ def check_binary(operand_a: float, operand_b: float) -> str or None:
 def check_unary(operand: float) -> str or None:
     """
     The function checks if the operand given is an operands.
-    :param operand: operand
+    :param operand: Operand.
     :return: None if the operands are valid, otherwise the exception code of missing operand.
     """
     if not is_operand(operand):
@@ -31,8 +31,8 @@ def check_unary(operand: float) -> str or None:
 def check_div_modulo(operand_a: float, operand_b: float) -> str or None:
     """
     The function checks if the operands are valid for division.
-    :param operand_a: first operand
-    :param operand_b: second operand
+    :param operand_a: First operand.
+    :param operand_b: Second operand.
     :return: None if the operands are valid, otherwise the exception code of the invalidity.
     """
     # checks if the operands are operands
@@ -46,8 +46,8 @@ def check_div_modulo(operand_a: float, operand_b: float) -> str or None:
 def check_power(operand_a: float, operand_b: float) -> str or None:
     """
     The function checks if the operands are valid for power.
-    :param operand_a: first operand
-    :param operand_b: second operand
+    :param operand_a: First operand.
+    :param operand_b: Second operand.
     :return: None if the operands are valid, otherwise the exception code of the invalidity.
     """
     # checks if the operands are operands
@@ -61,7 +61,7 @@ def check_power(operand_a: float, operand_b: float) -> str or None:
 def check_factorial(operand: float) -> str or None:
     """
     The function checks if the operands are valid for factorial.
-    :param operand: operand
+    :param operand: Operand.
     :return: None if the operands are valid, otherwise the exception code of the invalidity.
     """
     # checks if the operands are operands
@@ -76,10 +76,11 @@ def check_operation(check_func, operator: str, index, *operands: float or str):
     """
     The function checks the validity of the operands according to the check function.
     If invalid, raises exception accordingly.
-    :param check_func: check function to activate
-    :param operator: the operator
-    :param index: index of the operation in the equation (for the informative exception)
-    :param operands: operands to validate
+    :param check_func: Check function to activate.
+    :param operator: The operator.
+    :param index: Index of the operation in the equation (for the informative exception).
+    :param operands: Operands to validate.
+    :return: None.
     """
     # checks if invalid
     exception_code = check_func(*operands)
@@ -90,8 +91,8 @@ def check_operation(check_func, operator: str, index, *operands: float or str):
 def is_operand(operand: float) -> bool:
     """
     The function checks if the given operand is a number (valid operand).
-    :param operand: operand
-    :return: True if valid, False otherwise
+    :param operand: Operand.
+    :return: True if valid, False otherwise.
     """
     return type(operand) is float
 
@@ -106,8 +107,9 @@ ERROR_CODES = {"MON": (MissingOperandError, 2),
 def raise_exception(exception_code, exception_info: tuple[int, str]):
     """
     This function raises an exception according to the given exception code.
-    :param exception_code: the exception code
-    :param exception_info: the index and symbol where the exception occurred
+    :param exception_code: The exception code.
+    :param exception_info: The index and symbol where the exception occurred.
+    :return: None.
     """
     exception, var_count = ERROR_CODES[exception_code]
     raise exception(*exception_info[:var_count])
