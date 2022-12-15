@@ -1,42 +1,116 @@
 """
-Calculator exceptions types.
+Module for all the Exception that can be raised by the calculator program.
 """
 
 
-class EquationSyntaxError(SyntaxError):
+# already exists, but I wanted to keep my format throw the entire Error messages.
+class DivisionOperandError(ZeroDivisionError):
     """
-    Exception for claculator syntax errors (found in the parsing process)
+    Exception for invalid division operand.
     """
-
-    __ERROR_MSG = {"NE": "Empty equation was entered",
-                   "NS": "Not supported symbol",
-                   "DE": "Invalid dot, dots cant be next to one another or without a digit behind",
-                   "IB": "Invalid brackets, missing matching bracket"}
-
-    def __init__(self, code: str, index: int = -1):
+    def __init__(self, index: int):
         """
-        Inits the exception.
-        :param code: message code
-        :param index: exception index in the equation (if not mentioned = -1)
+        Init function to init the exception.
+        :param index: the index of where the exception occurred in the equation list
         """
-        super().__init__(self.__ERROR_MSG[code] if index == -1 else f"{self.__ERROR_MSG[code]}\n\tin index: {index}")
+        ArithmeticError.__init__(self, f"Invalid division operand, Can't divide by zero, in index {index}")
 
 
-class EquationMathError(ArithmeticError):
+class FactorialOperandError(ArithmeticError):
     """
-    Exception for claculator mathematical errors (found in the reading process)
+    Exception for invalid factorial operand.
     """
-    __ERROR_MSG = {"MON": "Missing operand",
-                   "MOT": "Missing operator",
-                   "ZD": "Can't divide by zero",
-                   "FE": "Invalid factorial operand, factorial works on natural numbers only",
-                   "PE": "Invalid power operand, negative number by the power of a fracture is a complex number, this calculator doesn't support complex numbers"}
+    def __init__(self, index: int):
+        """
+        Init function to init the exception.
+        :param index: the index of where the exception occurred in the equation list
+        """
+        ArithmeticError.__init__(self, f"Invalid factorial operand, "
+                                       f"factorial works on natural numbers only, in index {index}")
 
-    def __init__(self, code: str, index: int, operator: str = ""):
+
+class PowerOperandsError(ArithmeticError):
+    """
+    Exception for invalid division operand.
+    """
+    def __init__(self, index: int):
         """
-        Inits the exception.
-        :param code: message code
-        :param index: exception index in the equation
-        :param operator: the operator that raised the exception (if not mentioned -> empty string)
+        Init function to init the exception.
+        :param index: the index of where the exception occurred in the equation list
         """
-        super().__init__(f"{self.__ERROR_MSG[code]}{operator}\n\tin index: {index}")
+        ArithmeticError.__init__(self, f"Invalid power operands, negative number by the power of a fracture results in"
+                                       f"a complex number, this calculator doesn't support complex numbers, "
+                                       f"in index {index}")
+
+
+class MissingOperatorError(SyntaxError):
+    """
+    Exception for missing operand.
+    """
+    def __init__(self, index: int):
+        """
+        Init function to init the exception.
+        :param index: the index of where the exception occurred in the equation list
+        """
+        SyntaxError.__init__(self, f"Missing operator, in index {index}")
+
+
+class MissingOperandError(SyntaxError):
+    """
+    Exception for missing operator.
+    """
+    def __init__(self, index: int, symbol: str):
+        """
+        Init function to init the exception.
+        :param index: the index of where the exception occurred in the equation list
+        :param symbol: the operator that is missing the operand
+        """
+        SyntaxError.__init__(self, f"Missing operand for {symbol}, in index {index}")
+
+
+class EmptyEquationError(SyntaxError):
+    """
+    Exception Empty or white space only equation.
+    """
+    def __init__(self):
+        """
+        Init function to init the exception.
+        """
+        SyntaxError.__init__(self, "Invalid equation, empty equation was entered")
+
+
+class UnsupportedSymbolError(SyntaxError):
+    """
+    Exception for unsupported symbol (found in the equation).
+    """
+    def __init__(self, index: int, symbol: str):
+        """
+        Init function to init the exception.
+        :param index: the index of where the exception occurred in the equation string
+        :param symbol: the unsupported symbol that caused the exception.
+        """
+        SyntaxError.__init__(self, f"Unsupported symbol {symbol}, in index {index}")
+
+
+class InvalidDotError(SyntaxError):
+    """
+    Exception for invalid dot.
+    """
+    def __init__(self, index: int):
+        """
+        Init function to init the exception.
+        :param index: the index of where the exception occurred in the equation sting
+        """
+        SyntaxError.__init__(self, f"Invalid dot, dots cant be next to one another or without a digit behind"
+                                   f", in index {index}")
+
+
+class MissingBracketError(SyntaxError):
+    """
+    Exception for missing bracket.
+    """
+    def __init__(self):
+        """
+        Init function to init the exception.
+        """
+        SyntaxError.__init__(self, "Invalid brackets, missing matching bracket")

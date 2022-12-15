@@ -1,5 +1,5 @@
 from configuration import *
-from CalculatorExceptions import EquationSyntaxError
+from CalculatorExceptions import *
 
 """
 Module to validates the entered string, to be parsed.
@@ -31,19 +31,19 @@ def check_validity(equation_str: str):
     """
     # Checks for empty equation
     if is_empty(equation_str):
-        raise EquationSyntaxError("NE")
+        raise EmptyEquationError()
 
     for i, symbol in enumerate(equation_str):
         # Checks for invalid symbols
         if not is_valid_symbol(symbol):
-            raise EquationSyntaxError("NS", i)
+            raise UnsupportedSymbolError(i, symbol)
         # Checks for invalid dots
         if symbol is DOT and not is_valid_dot(equation_str, i):
-            raise EquationSyntaxError("DE", i)
+            raise InvalidDotError(i)
 
     # Checks for misplaced or missing brackets
     if not are_valid_brackets(equation_str):
-        raise EquationSyntaxError("IB")
+        raise MissingBracketError()
 
 
 def remove_extra_spaces(equation_str: str) -> str:
@@ -80,7 +80,6 @@ def is_valid_dot(equation_str: str, index: int) -> bool:
     :param index: index of the dot
     :return: True if the dot is valid, False otherwise
     """
-    # 12. is invalid:
     return index < len(equation_str) - 1 and equation_str[index + 1].isdigit()
 
 

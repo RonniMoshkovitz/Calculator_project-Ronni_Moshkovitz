@@ -1,8 +1,6 @@
 from OperationPreformer import *
 from configuration import *
-
-# todo: create utility module to support minus signs conversion
-# from TreatMinusSigns import edit_minuses_in_equation
+from TreatMinusSigns import edit_minuses_in_equation
 
 """
 Reads equation list, and tries to solve. raises exceptions if misplaced operand or operator
@@ -39,7 +37,6 @@ class EquationReader:
     """
     Class for Equation Reader. This reader reads the equation by the execution order and solves it accordingly.
     """
-
     def __init__(self, equation: list[str or float], index_to_brackets: int = -1):
         """
         Init of the Equation Reader.
@@ -112,7 +109,7 @@ class EquationReader:
         var in the equation after finishing reading the equation, there is a missing operator).
         """
         if len(self.__equation) > 1:
-            raise EquationMathError("MOT", self.get_overall_index(1))
+            raise MissingOperatorError(self.get_overall_index(1))
 
     def insert_operations_solutions(self):
         """
@@ -121,8 +118,7 @@ class EquationReader:
         """
         # runs from the highest priority operators to lowest
         for operators in PRIORITY_LISTS.values():
-            # todo: make utility module to treat minus signs
-            # edit_minuses_in_equation(self)
+            edit_minuses_in_equation(self)
 
             next_operator = self.find_next(operators)
             # while there is a next operator to preform
@@ -212,8 +208,8 @@ class EquationReader:
         """
         This function solves the brackets equation located in between
         the given indexes, and replaces it with its result.
-        :param start:
-        :param end:
+        :param start: index of the opening bracket
+        :param end:index of the closing bracket
         """
         brackets_equation = EquationReader(self.__equation[start + 1: end], self.get_overall_index(start) + 1)
         # reads and solves the brackets equation

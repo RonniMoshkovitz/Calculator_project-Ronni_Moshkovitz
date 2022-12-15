@@ -1,4 +1,4 @@
-from CalculatorExceptions import EquationMathError
+from CalculatorExceptions import *
 
 """
 Module containing all the operation validations (checks) for the supported operations on the calculator.
@@ -84,7 +84,7 @@ def check_operation(check_func, operator: str, index, *operands: float or str):
     # checks if invalid
     exception_code = check_func(*operands)
     if exception_code:
-        raise EquationMathError(exception_code, index, f"\n\t --> for {operator}")
+        raise_exception(exception_code, (index, operator))
 
 
 def is_operand(operand: float) -> bool:
@@ -94,3 +94,20 @@ def is_operand(operand: float) -> bool:
     :return: True if valid, False otherwise
     """
     return type(operand) is float
+
+
+ERROR_CODES = {"MON": (MissingOperandError, 2),
+               "MOT": (MissingOperatorError, 1),
+               "ZD": (DivisionOperandError, 1),
+               "FE": (FactorialOperandError, 1),
+               "PE": (PowerOperandsError, 1)}
+
+
+def raise_exception(exception_code, exception_info: tuple[int, str]):
+    """
+    This function raises an exception according to the given exception code.
+    :param exception_code: the exception code
+    :param exception_info: the index and symbol where the exception occurred
+    """
+    exception, var_count = ERROR_CODES[exception_code]
+    raise exception(*exception_info[:var_count])
