@@ -122,7 +122,7 @@ class EquationReader:
         """
         # runs from the highest priority operators to lowest
         for operators in PRIORITY_LISTS.values():
-            edit_minuses_in_equation(self)
+            self.minus_update()
 
             next_operator = self.find_next(operators)
             # while there is a next operator to preform
@@ -131,6 +131,15 @@ class EquationReader:
                 next_operator = self.find_next(operators)
         # check the result
         self.check_equation_solution()
+
+    def minus_update(self):
+        """
+        This function edits the minus signs in the equation, and updates the index followup.
+        :return: None.
+        """
+        minus_updates = edit_minuses_in_equation(self.__equation)
+        for update in minus_updates:
+            self.update_vars_in_index(*update)
 
     def insert_operation_solution(self, operator_index: int):
         """
