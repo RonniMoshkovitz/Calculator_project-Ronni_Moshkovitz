@@ -38,9 +38,9 @@ class PowerOperandsError(ArithmeticError):
         Init function to init the exception.
         :param index: the index of where the exception occurred in the equation list
         """
-        ArithmeticError.__init__(self, f"Invalid power operands, negative number by the power of a fracture results in"
-                                       f"a complex number, this calculator doesn't support complex numbers, "
-                                       f"in index {index}")
+        ArithmeticError.__init__(self, f"Invalid power operands, negative number by the power of a fracture "
+                                       f"(either positive or negative) results in a complex number, this calculator "
+                                       f"doesn't support complex numbers, in index {index}")
 
 
 class MissingOperatorError(SyntaxError):

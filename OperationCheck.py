@@ -53,7 +53,7 @@ def check_power(operand_a: float, operand_b: float) -> str or None:
     # checks if the operands are operands
     failed = check_binary(operand_a, operand_b)
 
-    if not failed and (operand_a <= 0 and 0 < operand_b < 1):
+    if not failed and (operand_a <= 0 and (0 < operand_b < 1 or -1 < operand_b < 0)):
         return "PE"
     return failed
 
