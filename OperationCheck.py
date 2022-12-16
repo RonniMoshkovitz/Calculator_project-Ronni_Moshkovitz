@@ -6,6 +6,8 @@ The main function (check_operations preforms the validation according to the giv
 and raises exceptions if needed.
 """
 
+__all__ = ["check_binary", "check_unary", "check_div_modulo", "check_power", "check_factorial", "check_operation"]
+
 
 def check_binary(operand_a: float, operand_b: float) -> str or None:
     """

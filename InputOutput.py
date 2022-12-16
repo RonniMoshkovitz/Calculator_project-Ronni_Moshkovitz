@@ -3,6 +3,8 @@ Module to communicate with the user. It displays information, and gets user inpu
 This module supports communication with the user throw the terminal (ordinary input output)
 """
 
+__all__ = ["get_equation", "display_welcome_msg", "display_info", "display_result"]
+
 WELLCOME_MSG = """
 Wellcome to the ADVANCED OMEGA CALCULATOR!\n
 This calculator supports the following operations:\n
