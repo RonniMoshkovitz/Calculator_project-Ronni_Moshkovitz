@@ -40,21 +40,20 @@ class PowerOperandsError(ArithmeticError):
         :param index: The index of where the exception occurred in the equation list.
         """
         ArithmeticError.__init__(self, f"Invalid power operands, negative number by the power of a fracture "
-                                       f"(either positive or negative) results in a complex number, this calculator "
-                                       f"doesn't support complex numbers, for equation variable in index {index}")
+                                       f"results in a complex number.\nThis calculator doesn't support complex "
+                                       f"numbers, for equation variable in index {index}")
 
 
 class MissingOperatorError(SyntaxError):
     """
     Exception class for missing operand.
     """
-    def __init__(self, index: int, symbol: str):
+    def __init__(self, index: int):
         """
         Init function to init the exception.
         :param index: The index of where the exception occurred in the equation list.
-        :param symbol: The operand before the missing operator.
         """
-        SyntaxError.__init__(self, f"Missing operator, after {symbol} equation variable in index {index}")
+        SyntaxError.__init__(self, f"Missing operator, before equation variable in index {index}")
 
 
 class MissingOperandError(SyntaxError):

@@ -113,7 +113,7 @@ class EquationReader:
         :return: None.
         """
         if len(self.__equation) > 1:
-            raise MissingOperatorError(self.get_overall_index(0), self.__equation[0])
+            raise MissingOperatorError(self.__equation[1])
 
     def insert_operations_solutions(self):
         """
