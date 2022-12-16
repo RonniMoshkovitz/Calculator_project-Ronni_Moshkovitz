@@ -109,7 +109,7 @@ def factorial(operand: float) -> float:
     :return: Factorial result.
     """
     if operand == 1:
-        return 1
+        return 1.0
     # runs recursively and multiples by all the natural nums from 1 to the operand
     return factorial(operand - 1) * operand
 
