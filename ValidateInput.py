@@ -1,5 +1,5 @@
 from configuration import *
-from CalculatorExceptions import *
+from CalculatorExceptions import EmptyEquationError, InvalidDotError, MissingBracketError, UnsupportedSymbolError
 
 """
 Module to validates the entered string, to be parsed.

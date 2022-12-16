@@ -1,4 +1,4 @@
-from EquationSolver import *
+from EquationSolver import solve_equation
 from InputOutput import *
 """
 The main module of the calculator app. In charge of the UI functionality.

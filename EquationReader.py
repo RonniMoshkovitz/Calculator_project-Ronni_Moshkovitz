@@ -1,9 +1,10 @@
-from OperationPreformer import *
-from configuration import *
+from OperationPreformer import preform_operation
 from TreatMinusSigns import edit_minuses_in_equation
+from CalculatorExceptions import MissingOperatorError
+from configuration import *
 
 """
-Reads equation list, and tries to solve. raises exceptions if misplaced operand or operator
+Reads equation list, and tries to solve it. Raises exceptions if misplaced operand or operator
 """
 
 
@@ -112,7 +113,7 @@ class EquationReader:
         :return: None.
         """
         if len(self.__equation) > 1:
-            raise MissingOperatorError(self.get_overall_index(1))
+            raise MissingOperatorError(self.get_overall_index(0), self.__equation[0])
 
     def insert_operations_solutions(self):
         """

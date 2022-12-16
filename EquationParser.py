@@ -1,4 +1,5 @@
-from ValidateInput import *
+from ValidateInput import validate_input
+from configuration import *
 
 """
 Module to parse string equation (input), to a list equation containing operands, operators and brackets.

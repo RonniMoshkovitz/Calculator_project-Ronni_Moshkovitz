@@ -22,7 +22,7 @@ OPERATORS_FUNCS = {"+": (add, check_binary),
                    }
 
 
-def preform_operation(operator: str, index, *operands) -> float:
+def preform_operation(operator: str, index: int, *operands: float or str) -> float:
     """
     The function gets an operator and its matching operands, and preforms it.
     :param operator: Operator.

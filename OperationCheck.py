@@ -1,4 +1,4 @@
-from CalculatorExceptions import *
+from CalculatorExceptions import MissingOperandError, DivisionOperandError, FactorialOperandError, PowerOperandsError
 
 """
 Module containing all the operation validations for the supported operations on the calculator.
@@ -15,7 +15,7 @@ def check_binary(operand_a: float, operand_b: float) -> str or None:
     :return: None if the operands are valid, otherwise the exception code of missing operand.
     """
     if not (is_operand(operand_a) and is_operand(operand_b)):
-        return "MON"
+        return "MO"
 
 
 def check_unary(operand: float) -> str or None:
@@ -25,7 +25,7 @@ def check_unary(operand: float) -> str or None:
     :return: None if the operands are valid, otherwise the exception code of missing operand.
     """
     if not is_operand(operand):
-        return "MON"
+        return "MO"
 
 
 def check_div_modulo(operand_a: float, operand_b: float) -> str or None:
@@ -72,7 +72,7 @@ def check_factorial(operand: float) -> str or None:
     return failed
 
 
-def check_operation(check_func, operator: str, index, *operands: float or str):
+def check_operation(check_func, operator: str, index: int, *operands: float or str):
     """
     The function checks the validity of the operands according to the check function.
     If invalid, raises exception accordingly.
@@ -97,14 +97,13 @@ def is_operand(operand: float) -> bool:
     return type(operand) is float
 
 
-ERROR_CODES = {"MON": (MissingOperandError, 2),
-               "MOT": (MissingOperatorError, 1),
+ERROR_CODES = {"MO": (MissingOperandError, 2),
                "ZD": (DivisionOperandError, 1),
                "FE": (FactorialOperandError, 1),
                "PE": (PowerOperandsError, 1)}
 
 
-def raise_exception(exception_code, exception_info: tuple[int, str]):
+def raise_exception(exception_code: str, exception_info: tuple[int, str]):
     """
     This function raises an exception according to the given exception code.
     :param exception_code: The exception code.

@@ -48,12 +48,13 @@ class MissingOperatorError(SyntaxError):
     """
     Exception class for missing operand.
     """
-    def __init__(self, index: int):
+    def __init__(self, index: int, symbol: str):
         """
         Init function to init the exception.
         :param index: The index of where the exception occurred in the equation list.
+        :param symbol: The operand before the missing operator.
         """
-        SyntaxError.__init__(self, f"Missing operator, for equation variable in index {index}")
+        SyntaxError.__init__(self, f"Missing operator, after {symbol} equation variable in index {index}")
 
 
 class MissingOperandError(SyntaxError):

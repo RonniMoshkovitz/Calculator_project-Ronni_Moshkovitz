@@ -1,5 +1,5 @@
-from EquationParser import *
-from EquationReader import *
+from EquationParser import convert_to_list
+from EquationReader import EquationReader
 
 """
 Module to Solve the equation. from string equation to final results.

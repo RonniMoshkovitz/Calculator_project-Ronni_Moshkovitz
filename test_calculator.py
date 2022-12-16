@@ -1,4 +1,4 @@
-from EquationSolver import *
+from EquationSolver import solve_equation
 
 """
 Pytest testing for the calculator.
