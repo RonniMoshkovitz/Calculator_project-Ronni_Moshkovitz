@@ -13,7 +13,8 @@ class DivisionOperandError(ZeroDivisionError):
         Init function to init the exception.
         :param index: The index of where the exception occurred in the equation list.
         """
-        ArithmeticError.__init__(self, f"Invalid division operand, Can't divide by zero, in index {index}")
+        ArithmeticError.__init__(self, f"Invalid division operand, Can't divide by zero, "
+                                       f"for equation variable in index {index}")
 
 
 class FactorialOperandError(ArithmeticError):
@@ -25,8 +26,8 @@ class FactorialOperandError(ArithmeticError):
         Init function to init the exception.
         :param index: The index of where the exception occurred in the equation list.
         """
-        ArithmeticError.__init__(self, f"Invalid factorial operand, "
-                                       f"factorial works on natural numbers only, in index {index}")
+        ArithmeticError.__init__(self, f"Invalid factorial operand, factorial works on natural numbers only, "
+                                       f"for equation variable in index {index}")
 
 
 class PowerOperandsError(ArithmeticError):
@@ -40,7 +41,7 @@ class PowerOperandsError(ArithmeticError):
         """
         ArithmeticError.__init__(self, f"Invalid power operands, negative number by the power of a fracture "
                                        f"(either positive or negative) results in a complex number, this calculator "
-                                       f"doesn't support complex numbers, in index {index}")
+                                       f"doesn't support complex numbers, for equation variable in index {index}")
 
 
 class MissingOperatorError(SyntaxError):
@@ -52,7 +53,7 @@ class MissingOperatorError(SyntaxError):
         Init function to init the exception.
         :param index: The index of where the exception occurred in the equation list.
         """
-        SyntaxError.__init__(self, f"Missing operator, in index {index}")
+        SyntaxError.__init__(self, f"Missing operator, for equation variable in index {index}")
 
 
 class MissingOperandError(SyntaxError):
@@ -65,7 +66,7 @@ class MissingOperandError(SyntaxError):
         :param index: The index of where the exception occurred in the equation list.
         :param symbol: The operator that is missing the operand.
         """
-        SyntaxError.__init__(self, f"Missing operand for {symbol}, in index {index}")
+        SyntaxError.__init__(self, f"Missing operand, for {symbol} equation variable in index {index}")
 
 
 class EmptyEquationError(SyntaxError):
