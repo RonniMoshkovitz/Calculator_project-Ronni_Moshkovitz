@@ -58,7 +58,7 @@ class EquationReader:
         """
         return self.__equation
 
-    def get_right(self, index: int) -> str or float or None:
+    def __get_right(self, index: int) -> str or float or None:
         """
         Get function. This function returns the variable on the right to the variable in the given index.
         :param index: The current index.
@@ -67,7 +67,7 @@ class EquationReader:
         if index < len(self.__equation) - 1:
             return self.__equation[index + 1]
 
-    def get_left(self, index: int) -> str or float or None:
+    def __get_left(self, index: int) -> str or float or None:
         """
         Get function. This function returns the variable on the left to the variable in the given index.
         :param index: The current index.
@@ -76,7 +76,7 @@ class EquationReader:
         if index > 0:
             return self.__equation[index - 1]
 
-    def get_overall_index(self, list_index: int) -> int:
+    def __get_overall_index(self, list_index: int) -> int:
         """
         Get function. This function returns the overall index of the variable in the current index
         (the list modifies throw the solving process, and so does the indexes of the variables).
@@ -91,9 +91,9 @@ class EquationReader:
         return index
 
     # static var to match operator type with operands index (relevant to the index)
-    __OPERATOR_TYPES_VARS = {"BINARY": ((get_left, get_right), -1),
-                             "UNARY_L": ((get_right,), 0),
-                             "UNARY_R": ((get_left,), -1)}
+    __OPERATOR_TYPES_VARS = {"BINARY": ((__get_left, __get_right), -1),
+                             "UNARY_L": ((__get_right,), 0),
+                             "UNARY_R": ((__get_left,), -1)}
 
     # solving
     def read_equation(self):
@@ -101,21 +101,21 @@ class EquationReader:
         This function reads the equation according to the solving order and solves the equation step by step.
         :return: None.
         """
-        self.treat_brackets()
+        self.__treat_brackets()
 
         # preforms the operations within the equation
-        self.insert_operations_solutions()
+        self.__insert_operations_solutions()
 
-    def check_equation_solution(self):
+    def __check_equation_solution(self):
         """
         This function checks to see that the equation result is valid ( if there is more than one
         variable in the equation after finishing reading the equation, there is a missing operator).
         :return: None.
         """
         if len(self.__equation) > 1:
-            raise MissingOperatorError(self.__equation[1])
+            raise MissingOperatorError(self.__get_overall_index(1))
 
-    def insert_operations_solutions(self):
+    def __insert_operations_solutions(self):
         """
         This function replaces the operations with their solutions,
         one by one according to their priority order (high to low).
@@ -123,38 +123,38 @@ class EquationReader:
         """
         # runs from the highest priority operators to lowest
         for operators in PRIORITY_LISTS.values():
-            self.minus_update()
+            self.__minus_update()
 
-            next_operator = self.find_next(operators)
+            next_operator = self.__find_next(operators)
             # while there is a next operator to preform
             while next_operator != -1:
-                self.insert_operation_solution(next_operator)
-                next_operator = self.find_next(operators)
+                self.__insert_operation_solution(next_operator)
+                next_operator = self.__find_next(operators)
         # check the result
-        self.check_equation_solution()
+        self.__check_equation_solution()
 
-    def minus_update(self):
+    def __minus_update(self):
         """
         This function edits the minus signs in the equation, and updates the index followup.
         :return: None.
         """
         minus_updates = edit_minuses_in_equation(self.__equation)
         for update in minus_updates:
-            self.update_vars_in_index(*update)
+            self.__update_vars_in_index(*update)
 
-    def insert_operation_solution(self, operator_index: int):
+    def __insert_operation_solution(self, operator_index: int):
         """
         The function replaces the operator and operands from the equation with their solution.
         :param operator_index: The operator's index.
         :return: None.
         """
-        result, start_index, end_index = self.get_operation_replacement_info(operator_index)
+        result, start_index, end_index = self.__get_operation_replacement_info(operator_index)
 
         # replaces the operator and operands with their result
         self.__equation[start_index: end_index + 1] = [result]
-        self.update_vars_in_index(start_index, end_index)
+        self.__update_vars_in_index(start_index, end_index)
 
-    def update_vars_in_index(self, start: int, end: int):
+    def __update_vars_in_index(self, start: int, end: int):
         """
         This function updated the index's list (contains the amount of variables that were replaced from
         the original equation by their solutions in each current equation variable).
@@ -163,7 +163,7 @@ class EquationReader:
         """
         self.__vars_in_index[start: end + 1] = [sum(self.__vars_in_index[start: end + 1])]
 
-    def get_operation_replacement_info(self, index: int) -> tuple[float, int, int]:
+    def __get_operation_replacement_info(self, index: int) -> tuple[float, int, int]:
         """
         This function gets the information required to replace the operation variables
         with their result (including the operation's solution).
@@ -180,10 +180,10 @@ class EquationReader:
         # creates a list of the operation's operands
         operation_operands = [get_var.__get__(self, type(self))(index) for get_var in operands_getters]
 
-        result = preform_operation(operator, self.get_overall_index(index), *operation_operands)
+        result = preform_operation(operator, self.__get_overall_index(index), *operation_operands)
         return result, start, start + len(operation_operands)
 
-    def find_next(self, next_operators: list[str]) -> int:
+    def __find_next(self, next_operators: list[str]) -> int:
         """
         The function gets an equation and the current priority level of execution,
         and returns the index of the next operator to execute. if not found, returns -1.
@@ -199,7 +199,7 @@ class EquationReader:
         return -1
 
     # brackets handling
-    def find_brackets(self) -> tuple[int, int]:
+    def __find_brackets(self) -> tuple[int, int]:
         """
         This function finds the location of the inner brackets and returns their
         location (index of opening bracket and index of closing bracket)
@@ -211,17 +211,17 @@ class EquationReader:
             elif var == BRACKETS[1]:
                 return start, i
 
-    def treat_brackets(self):
+    def __treat_brackets(self):
         """
         This function replaces all the brackets sub equations in
         the equation with their result (solves the brackets first).
         :return: None.
         """
         while BRACKETS[0] in self.__equation:
-            start, end = self.find_brackets()
-            self.insert_brackets_equation(start, end)
+            start, end = self.__find_brackets()
+            self.__insert_brackets_equation(start, end)
 
-    def insert_brackets_equation(self, start: int, end: int):
+    def __insert_brackets_equation(self, start: int, end: int):
         """
         This function solves the brackets equation located in between
         the given indexes, and replaces it with its result.
@@ -229,9 +229,9 @@ class EquationReader:
         :param end: Index of the closing bracket.
         :return: None.
         """
-        brackets_equation = EquationReader(self.__equation[start + 1: end], self.get_overall_index(start) + 1)
+        brackets_equation = EquationReader(self.__equation[start + 1: end], self.__get_overall_index(start) + 1)
         # reads and solves the brackets equation
         brackets_equation.read_equation()
 
         self.__equation[start: end + 1] = brackets_equation.get_equation()
-        self.update_vars_in_index(start, end)
+        self.__update_vars_in_index(start, end)
