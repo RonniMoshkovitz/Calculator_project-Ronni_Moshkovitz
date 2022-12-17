@@ -9,7 +9,7 @@ if conversion is impossible, raises an exception.
 
 def parse_equation(equation_str: str) -> list[int or float]:
     """
-    The function converts the input string equation into a caculateable list format, containing operators and operands.
+    The function converts the input string equation into a calculable list format, containing operators and operands.
     :param equation_str: Input equation.
     :return: List equation (list of operators and operands).
     """
