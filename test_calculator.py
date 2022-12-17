@@ -11,7 +11,7 @@ def test_syntax_errors():
     :return: None.
     """
     test_cases = ["2+*7", "4--(9", "5#4", "8(7)", "12..12"]
-    for equation, result in map(solve_equation, test_cases):
+    for _, result in map(solve_equation, test_cases):
         # solve_equation returns a string if invalid equation was entered (syntax error)
         assert type(result) is str
 
