@@ -1,4 +1,4 @@
-from EquationParser import convert_to_list
+from EquationParser import parse_equation
 from EquationReader import EquationReader
 
 """
@@ -16,7 +16,7 @@ def solve_equation(equation_str: str) -> tuple[str, str or float]:
 
     try:
         # crates a reader to read the equation
-        equation_reader = EquationReader(convert_to_list(equation_str))
+        equation_reader = EquationReader(parse_equation(equation_str))
         # converts to string of the equation variables, separated by spaces
         # to differ the indexes of the equation variables
         equation_str = " ".join(map(str, equation_reader.get_equation()))
