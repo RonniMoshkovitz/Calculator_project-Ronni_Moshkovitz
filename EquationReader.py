@@ -104,7 +104,7 @@ class EquationReader:
         self.__treat_brackets()
 
         # preforms the operations within the equation
-        self.__insert_operations_solutions()
+        self.__solve_by_order()
 
     def __check_equation_solution(self):
         """
@@ -115,7 +115,7 @@ class EquationReader:
         if len(self.__equation) > 1:
             raise MissingOperatorError(self.__get_overall_index(1))
 
-    def __insert_operations_solutions(self):
+    def __solve_by_order(self):
         """
         This function replaces the operations with their solutions,
         one by one according to their priority order (high to low).
