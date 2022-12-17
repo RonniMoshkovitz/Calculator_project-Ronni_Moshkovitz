@@ -14,10 +14,10 @@ def validate_input(equation_str: str) -> str:
     :param equation_str: Input equation.
     :return: Validated string equation (the input equation without extra spaces and tabs).
     """
-    # Removes extras
+    # removes extras
     equation_str = remove_extra_spaces(equation_str)
 
-    # Checks for invalid symbols in the equation, may raise an exception accordingly
+    # checks for invalid symbols in the equation, may raise an exception accordingly
     check_validity(equation_str)
 
     return equation_str
@@ -30,19 +30,19 @@ def check_validity(equation_str: str):
     :param equation_str: String of the equation.
     :return: None.
     """
-    # Checks for empty equation
+    # checks for empty equation
     if is_empty(equation_str):
         raise EmptyEquationError()
 
     for i, symbol in enumerate(equation_str):
-        # Checks for invalid symbols
+        # checks for invalid symbols
         if not is_valid_symbol(symbol):
             raise UnsupportedSymbolError(i, symbol)
-        # Checks for invalid dots
+        # checks for invalid dots
         if symbol is DOT and not is_valid_dot(equation_str, i):
             raise InvalidDotError(i)
 
-    # Checks for misplaced or missing brackets
+    # checks for misplaced or missing brackets
     if not are_valid_brackets(equation_str):
         raise MissingBracketError()
 
@@ -92,13 +92,13 @@ def are_valid_brackets(equation_str: str, ) -> bool:
     """
     bracket_count = 0
     for symbol in equation_str:
-        # A closing bracket was placed before an opening one (missing an opening bracket)
+        # a closing bracket was placed before an opening one (missing an opening bracket)
         if bracket_count < 0:
             return False
-        # Counts opening and closing brackets in the equation (adds one for opening ones and subs one for closing ones)
+        # counts opening and closing brackets in the equation (adds one for opening ones and subs one for closing ones)
         if symbol == BRACKETS[0]:
             bracket_count += 1
         if symbol == BRACKETS[1]:
             bracket_count -= 1
-    # Checks for missing bracket (missing closing brackets)
+    # checks for missing bracket (missing closing brackets)
     return bracket_count == 0
