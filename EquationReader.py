@@ -126,10 +126,10 @@ class EquationReader:
             self.__minus_update()
 
             next_operator = self.__find_next(operators)
-            # while there is a next operator to preform
+            # while there is a next operator to preform in this priority level
             while next_operator != -1:
                 self.__insert_operation_solution(next_operator)
-                next_operator = self.__find_next(operators)
+                next_operator = self.__find_next(operators, next_operator)
         # check the result
         self.__check_equation_solution()
 
@@ -183,18 +183,21 @@ class EquationReader:
         result = preform_operation(operator, self.__get_overall_index(index), *operation_operands)
         return result, start, start + len(operation_operands)
 
-    def __find_next(self, next_operators: list[str]) -> int:
+    def __find_next(self, next_operators: list[str], from_index: int = 0) -> int:
         """
-        The function gets an equation and the current priority level of execution,
-        and returns the index of the next operator to execute. if not found, returns -1.
+        The function gets an equation and a list of all the next possible operators to execute.
+        It returns the index of the next operator to execute. if not found, returns -1.
         :param next_operators: List of the operators in the current priority (next operators to preform).
+        :param from_index: The index of the last operator in this priority level that was executed
+        (0 if none were executed yet).
         :return: The index of the next operator to execute, or -1 if not found.
         """
         # compares each equation var to the operators in current priority
-        for i, var in enumerate(self.__equation):
+        # if an operation from this priority level was already executed, no need to check all the vars before it again
+        for i, var in enumerate(self.__equation[from_index:]):
             if var in next_operators:
                 # returns index of the next operator to be operated
-                return i
+                return i + from_index
         # returns -1 if no next operator was found
         return -1
 
