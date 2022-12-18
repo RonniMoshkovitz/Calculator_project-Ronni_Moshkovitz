@@ -111,12 +111,14 @@ class EquationReader:
 
     def __check_equation_solution(self):
         """
-        This function checks to see that the equation result is valid ( if there is more than one
-        variable in the equation after finishing reading the equation, there is a missing operator).
+        This function checks to see that the equation result is valid. If there is more than one
+        variable in the equation after finishing reading the equation, there is a missing operator.
+        If the result is infinite, this is an unsupported value.
         :return: None.
         """
         if len(self.__equation) > 1:
             raise MissingOperatorError(self.__get_overall_index(1))
+
         if not (-INF < self.__equation[0] < INF):
             raise UnsupportedValueError()
 
@@ -177,14 +179,16 @@ class EquationReader:
         """
         operator = self.__equation[index]
         operator_type = OPERATORS_PRIORITY_AND_TYPES[operator][1]
+
         # gets the get functions for the operation's operands
-        # and the distance between the operation's start and the operators index
+        # and the distance between the operation's start and the operator's index
         operands_getters, start = self.__OPERATOR_TYPES_VARS[operator_type]
         start += index
 
-        # creates a list of the operation's operands
+        # creates a list of the operation's operands (preforms the getters functions to get the operands)
         operation_operands = [get_var.__get__(self, type(self))(index) for get_var in operands_getters]
 
+        # preforms the operation, returns its result
         result = preform_operation(operator, self.__get_overall_index(index), *operation_operands)
         return result, start, start + len(operation_operands)
 
