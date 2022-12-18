@@ -1,4 +1,7 @@
-from CalculatorExceptions import MissingOperandError, DivisionOperandError, FactorialOperandError, PowerOperandsError
+from configuration import INF
+from CalculatorExceptions import MissingOperandError, DivisionOperandError, FactorialOperandError, \
+                                 PowerOperandsError, UnsupportedValueError
+
 
 """
 Module containing all the operation validations for the supported operations on the calculator.
@@ -9,7 +12,7 @@ and raises exceptions if needed.
 __all__ = ["check_binary", "check_unary", "check_div_modulo", "check_power", "check_factorial", "check_operation"]
 
 
-def check_binary(operand_a: float, operand_b: float) -> str or None:
+def check_binary(operand_a: float or str, operand_b: float or str) -> str or None:
     """
     The function checks if the operands given are operands.
     :param operand_a: First operand.
@@ -20,7 +23,7 @@ def check_binary(operand_a: float, operand_b: float) -> str or None:
         return "MO"
 
 
-def check_unary(operand: float) -> str or None:
+def check_unary(operand: float or str) -> str or None:
     """
     The function checks if the operand given is an operands.
     :param operand: Operand.
@@ -30,7 +33,7 @@ def check_unary(operand: float) -> str or None:
         return "MO"
 
 
-def check_div_modulo(operand_a: float, operand_b: float) -> str or None:
+def check_div_modulo(operand_a: float or str, operand_b: float or str) -> str or None:
     """
     The function checks if the operands are valid for division.
     :param operand_a: First operand.
@@ -45,7 +48,7 @@ def check_div_modulo(operand_a: float, operand_b: float) -> str or None:
     return failed
 
 
-def check_power(operand_a: float, operand_b: float) -> str or None:
+def check_power(operand_a: float or str, operand_b: float or str) -> str or None:
     """
     The function checks if the operands are valid for power.
     :param operand_a: First operand.
@@ -60,7 +63,7 @@ def check_power(operand_a: float, operand_b: float) -> str or None:
     return failed
 
 
-def check_factorial(operand: float) -> str or None:
+def check_factorial(operand: float or str) -> str or None:
     """
     The function checks if the operands are valid for factorial.
     :param operand: Operand.
@@ -90,15 +93,28 @@ def check_operation(check_func, operator: str, index: int, *operands: float or s
         raise_exception(exception_code, (index, operator))
 
 
-def is_operand(operand: float) -> bool:
+def is_operand(operand: float or str) -> bool:
     """
-    The function checks if the given operand is a number (valid operand).
+    The function checks if the given operand is a supported number (valid operand).
     :param operand: Operand.
     :return: True if valid, False otherwise.
     """
+    is_supported_value_operand(operand)
     return type(operand) is float
 
 
+def is_supported_value_operand(operand: float or str):
+    """
+    This function checks if the value of the operand is an unsupported value (infinite). It raises an error accordingly.
+    :param operand: Operand.
+    :return: None
+    """
+    # if operand is too high or low, raise ValueError exception
+    if operand == INF or operand == -INF:
+        raise UnsupportedValueError()
+
+
+# dictionary to match exception codes with their matching exception (the exception and the amount of vars for init)
 ERROR_CODES = {"MO": (MissingOperandError, 2),
                "ZD": (DivisionOperandError, 1),
                "FE": (FactorialOperandError, 1),
