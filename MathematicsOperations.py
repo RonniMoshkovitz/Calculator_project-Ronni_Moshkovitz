@@ -108,7 +108,7 @@ def factorial(operand: float) -> float:
     :param operand: Operand.
     :return: Factorial result.
     """
-    if operand == 1:
+    if operand == 1 or operand == 0:
         return 1.0
     # runs recursively and multiples by all the natural nums from 1 to the operand
     return factorial(operand - 1) * operand
@@ -120,6 +120,8 @@ def sum_digits(operand: float) -> float:
     :param operand: operand.
     :return: Sum of the digits.
     """
+    # if operand is long enough to be displayed with an e, the # sums the digits in this number.
+    # for example: 1e+306# = 1 + 3 + 0 + 6 = 10
     operand_str = str(operand)
-    sum_dig = float(sum([int(digit) for digit in operand_str if digit.isdigit()]))
+    sum_dig = float(sum([float(digit) for digit in operand_str if digit.isdigit()]))
     return sum_dig if operand >= 0 else -sum_dig
