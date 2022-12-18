@@ -11,7 +11,7 @@ It checks for invalid appearances in the equation and raises exceptions if neede
 def validate_input(equation_str: str) -> str:
     """
     The function removes extra spaces and tabs and checks for invalid symbols in the equation input string.
-    May raise exception if needed (for invalid symbols, spaces, or missing brackets).
+    May raise exception if needed (for invalid symbols, dots, or brackets).
     :param equation_str: Input equation.
     :return: Validated string equation (the input equation without extra spaces and tabs).
     """
