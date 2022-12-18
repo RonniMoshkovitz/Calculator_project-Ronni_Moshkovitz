@@ -35,11 +35,13 @@ def convert_to_list_var(equation_str: str, equation_list: list[str or float]) ->
     :return: The amount of symbols that were converted and added to the equation list.
     """
     symbol = equation_str[0]
+
     # converts into operand
     if symbol.isdigit() or symbol == DOT:
         converted, operand = convert_to_operand(equation_str)
         equation_list.append(operand)
         return converted
+
     # converts into operator or bracket
     if symbol in OPERATORS + BRACKETS:
         equation_list.append(symbol)
@@ -55,11 +57,13 @@ def convert_to_operand(operand_str: str) -> tuple[int, float]:
     """
     index = 0
     operand = operand_str[index]
+
     # runs on the operand string and checks where the operand ends (can no longer be converted into an operand)
     while index < len(operand_str):
         try:
             operand = float(operand_str[:index + 1])
         except ValueError:
+            # if starts with a dot, is still a number but won't get past the first round
             if not operand == DOT:
                 break
         index += 1
