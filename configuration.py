@@ -21,4 +21,6 @@ BRACKETS = "()"
 OPERATORS = "".join(OPERATORS_PRIORITY_AND_TYPES.keys())
 MINUS_SIGN = "-"
 DOT = "."
+
+# infinite const:
 INF = float("inf")
