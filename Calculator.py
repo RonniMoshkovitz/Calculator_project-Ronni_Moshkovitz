@@ -25,7 +25,7 @@ def check_for_program_command(command: str):
     :return: True if the command is a program command, False otherwise.
     """
     command = command.upper()
-    # preform command if is a program command
+    # preform if is a program command
     if command in PROGRAM_COMMANDS.keys():
         PROGRAM_COMMANDS[command]()
         return True
@@ -42,6 +42,7 @@ def main():
     display_welcome_msg()
     while True:
         equation = get_equation()
+        # solve equation if is not a program command
         if not check_for_program_command(equation):
             display_result(*solve_equation(equation))
 
