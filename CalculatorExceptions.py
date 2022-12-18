@@ -115,3 +115,28 @@ class MissingBracketError(SyntaxError):
         Init function to init the exception.
         """
         SyntaxError.__init__(self, "Invalid brackets, missing matching bracket")
+
+
+class EmptyBracketsError(SyntaxError):
+    """
+    Exception class for empty brackets error.
+    """
+    def __init__(self, index: int):
+        """
+        Init function to init the exception.
+        :param index: The index of where the exception occurred in the equation sting.
+        """
+        SyntaxError.__init__(self, f"Invalid brackets, empty brackets were entered, in index {index}")
+
+
+class UnsupportedValueError(ValueError):
+    """
+    Exception class for unsupported operation values (if entered value or calculation result value is infinity or
+    minus infinity, the calculator doesn't support it).
+    """
+    def __init__(self):
+        """
+        Init function to init the exception.
+        """
+        ValueError.__init__(self, "Unsupported value (number too high or low), in equation. "
+                                  "Infinite numbers aren't supported by this calculator")
