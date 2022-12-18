@@ -71,6 +71,7 @@ def edit_minuses_in_equation(equation: list[str or float]):
     (tuples of the starting and ending index of each sequence)
     """
     index_updates = []
+    #
     i = len(equation) - 2
     while i > -1:
         count = 0
