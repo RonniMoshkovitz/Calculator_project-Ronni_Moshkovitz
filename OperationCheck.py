@@ -72,7 +72,7 @@ def check_factorial(operand: float or str) -> str or None:
     # checks if the operands are operands
     failed = check_unary(operand)
 
-    if not failed and (operand <= 0 or not operand.is_integer()):
+    if not failed and (operand < 0 or not operand.is_integer()):
         return "FE"
     return failed
 
