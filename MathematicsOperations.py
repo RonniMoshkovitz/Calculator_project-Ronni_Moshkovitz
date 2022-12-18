@@ -123,5 +123,6 @@ def sum_digits(operand: float) -> float:
     # if operand is long enough to be displayed with an e, the # sums the digits in this number.
     # for example: 1e+306# = 1 + 3 + 0 + 6 = 10
     operand_str = str(operand)
+    # runs on all the digits in the operand, and only if it really a digit, it adds it to a list, then it sums this list
     sum_dig = float(sum([float(digit) for digit in operand_str if digit.isdigit()]))
     return sum_dig if operand >= 0 else -sum_dig
