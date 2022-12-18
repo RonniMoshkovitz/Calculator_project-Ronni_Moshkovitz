@@ -64,4 +64,5 @@ def convert_to_operand(operand_str: str) -> tuple[int, float]:
                 break
         index += 1
 
+    # accurate up to 10 digits apter the dot
     return index, round(operand, 10)
