@@ -1,5 +1,6 @@
 from MathematicsOperations import *
 from OperationCheck import *
+from CalculatorExceptions import UnsupportedValueError
 
 """
 Module to preform the mathematical operations supported by the calculator.
@@ -32,9 +33,9 @@ def preform_operation(operator: str, index: int, *operands: float or str) -> flo
     """
     check_operation(OPERATORS_FUNCS[operator][1], operator, index, *operands)
 
-    # if too many recursions or overflow, the result is so high that the calculation is too much.
-    # in this case, the result is inf (infinity)
+    # if too many recursions or overflow, the result is so high or low that the calculation is too much.
+    # in this case, raise ValueError exception
     try:
-        return OPERATORS_FUNCS[operator][0](*operands)
+        return round(OPERATORS_FUNCS[operator][0](*operands), 10)
     except (RecursionError, OverflowError):
-        return float("inf")
+        raise UnsupportedValueError()
