@@ -102,8 +102,7 @@ class InvalidDotError(SyntaxError):
         Init function to init the exception.
         :param index: The index of where the exception occurred in the equation sting.
         """
-        SyntaxError.__init__(self, f"Invalid dot, dots can't be next to one another or without a digit behind"
-                                   f", in index {index}")
+        SyntaxError.__init__(self, f"Invalid dot, dots can only appear as part of an operand, in index {index}")
 
 
 class MissingBracketError(SyntaxError):

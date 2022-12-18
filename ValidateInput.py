@@ -87,7 +87,8 @@ def is_valid_dot(equation_str: str, index: int) -> bool:
     :param index: Index of the dot.
     :return: True if the dot is valid, False otherwise.
     """
-    return index < len(equation_str) - 1 and equation_str[index + 1].isdigit()
+    return (index < len(equation_str) - 1 and equation_str[index + 1].isdigit()) or\
+           (index > 0 and equation_str[index - 1].isdigit())
 
 
 def are_valid_brackets(equation_str: str) -> bool:
