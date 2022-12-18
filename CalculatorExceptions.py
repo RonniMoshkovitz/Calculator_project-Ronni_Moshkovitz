@@ -3,7 +3,7 @@ Classes for all the Exceptions that may be raised by the calculator program.
 """
 
 
-# already exists, but I wanted to keep my format through the entire Error messages.
+# already exists, but I wanted to customize it.
 class DivisionOperandError(ZeroDivisionError):
     """
     Exception class for invalid division operand.
@@ -138,5 +138,5 @@ class UnsupportedValueError(ValueError):
         """
         Init function to init the exception.
         """
-        ValueError.__init__(self, "Unsupported value (number too high or low), in equation. "
-                                  "Infinite numbers aren't supported by this calculator")
+        ValueError.__init__(self, "Unsupported value (number too high or low) in equation, "
+                                  "infinite numbers aren't supported by this calculator")
