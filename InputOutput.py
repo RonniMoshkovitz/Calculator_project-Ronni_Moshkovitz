@@ -5,8 +5,9 @@ This module supports communication with the user throw the terminal (ordinary in
 
 __all__ = ["get_equation", "display_welcome_msg", "display_info", "display_result"]
 
-WELLCOME_MSG = """
-Wellcome to the ADVANCED OMEGA CALCULATOR!\n
+WELCOME_MSG = """
+------------------------------------------------------------\n
+Welcome to the ADVANCED OMEGA CALCULATOR!\n
 This calculator supports the following operations:\n
 \t +: addition, in form of <operand>+<operand>\n
 \t -: submission, in form of <operand>-<operand>\n
@@ -23,6 +24,7 @@ This calculator supports the following operations:\n
 \n
 To display the menu again, please enter: Menu\n
 To exit, please enter: EXIT\n
+------------------------------------------------------------\n
 """
 
 
@@ -52,7 +54,7 @@ def display_welcome_msg():
     This function shows the user the calculator's UI menu.
     :return: None.
     """
-    print(WELLCOME_MSG)
+    display_info(WELCOME_MSG)
 
 
 def display_info(info: str):
@@ -99,3 +101,4 @@ def display_result(equation: str, result: float or str):
     :return: None.
     """
     DISPLAY[type(result)](equation, result)
+    display_info("\n--------------------------------------------------------------------------------------------\n")
