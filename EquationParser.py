@@ -46,7 +46,7 @@ def convert_to_list_var(equation_str: str, equation_list: list[str or float]) ->
         return 1
 
 
-def convert_to_operand(operand_str: str) -> tuple[str, float]:
+def convert_to_operand(operand_str: str) -> tuple[int, float]:
     """
     The function gets part of the equation string that starts with an operand. It then converts part of it
     (until it's the end of the operand) into an operand (float variable).
@@ -64,4 +64,4 @@ def convert_to_operand(operand_str: str) -> tuple[str, float]:
                 break
         index += 1
 
-    return index, operand
+    return index, round(operand, 10)
