@@ -1,5 +1,6 @@
 from configuration import *
-from CalculatorExceptions import EmptyEquationError, InvalidDotError, MissingBracketError, UnsupportedSymbolError
+from CalculatorExceptions import EmptyEquationError, InvalidDotError, MissingBracketError, \
+                                 UnsupportedSymbolError, EmptyBracketsError
 
 """
 Module to validates the entered string, to be parsed.
@@ -46,6 +47,11 @@ def check_validity(equation_str: str):
     if not are_valid_brackets(equation_str):
         raise MissingBracketError()
 
+    # checks for empty brackets
+    empty_brackets_index = find_empty_brackets(equation_str)
+    if empty_brackets_index != -1:
+        raise EmptyBracketsError(empty_brackets_index)
+
 
 def remove_extra_spaces(equation_str: str) -> str:
     """
@@ -84,7 +90,7 @@ def is_valid_dot(equation_str: str, index: int) -> bool:
     return index < len(equation_str) - 1 and equation_str[index + 1].isdigit()
 
 
-def are_valid_brackets(equation_str: str, ) -> bool:
+def are_valid_brackets(equation_str: str) -> bool:
     """
     The function checks for missing brackets in the equation.
     :param equation_str: String of the equation.
@@ -102,3 +108,13 @@ def are_valid_brackets(equation_str: str, ) -> bool:
             bracket_count -= 1
     # checks for missing bracket (missing closing brackets)
     return bracket_count == 0
+
+
+def find_empty_brackets(equation_str: str) -> int:
+    """
+    This function checks for empty brackets. It returns the index of the empty brackets
+    or -1 if empty brackets weren't found.
+    :param equation_str: String of the equation.
+    :return: True if empty brackets were found, False otherwise.
+    """
+    return equation_str.find(BRACKETS)
