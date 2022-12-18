@@ -99,12 +99,15 @@ class EquationReader:
     def read_equation(self):
         """
         This function reads the equation according to the solving order and solves the equation step by step.
-        :return: None.
+        :return: Equation result after reading and solving it.
         """
         self.__treat_brackets()
 
         # preforms the operations within the equation
         self.__solve_by_order()
+
+        # the solution is the only equation variable left in the equation list after reading it.
+        return self.__equation[0]
 
     def __check_equation_solution(self):
         """

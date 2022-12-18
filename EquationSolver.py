@@ -48,13 +48,10 @@ def try_to_solve(reader: EquationReader) -> float or str:
     """
     try:
         # try to solve equation
-        reader.read_equation()
+        return reader.read_equation()
 
     except SyntaxError as syntax:
         return f"SyntaxError: {syntax}"
 
     except ArithmeticError as arithmetic:
         return f"ArithmeticError: {arithmetic}"
-
-    # the solution is the only equation variable left in the equation list after reading it.
-    return reader.get_equation()[0]
