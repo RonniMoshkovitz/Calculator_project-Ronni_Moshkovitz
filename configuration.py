@@ -21,3 +21,4 @@ BRACKETS = "()"
 OPERATORS = "".join(OPERATORS_PRIORITY_AND_TYPES.keys())
 MINUS_SIGN = "-"
 DOT = "."
+INF = float("inf")
