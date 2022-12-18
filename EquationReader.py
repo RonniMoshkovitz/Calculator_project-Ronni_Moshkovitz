@@ -1,6 +1,6 @@
 from OperationPreformer import preform_operation
 from TreatMinusSigns import edit_minuses_in_equation
-from CalculatorExceptions import MissingOperatorError
+from CalculatorExceptions import MissingOperatorError, UnsupportedValueError
 from configuration import *
 
 """
@@ -117,6 +117,8 @@ class EquationReader:
         """
         if len(self.__equation) > 1:
             raise MissingOperatorError(self.__get_overall_index(1))
+        if not (-INF < self.__equation[0] < INF):
+            raise UnsupportedValueError()
 
     def __solve_by_order(self):
         """
