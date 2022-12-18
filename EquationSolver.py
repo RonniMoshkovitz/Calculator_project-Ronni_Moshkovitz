@@ -36,6 +36,7 @@ def try_to_parse(equation_str: str) -> list[float or str] or str:
     """
     try:
         return parse_equation(equation_str)
+
     except SyntaxError as syntax:
         return f"SyntaxError: {syntax}"
 
@@ -55,3 +56,6 @@ def try_to_solve(reader: EquationReader) -> float or str:
 
     except ArithmeticError as arithmetic:
         return f"ArithmeticError: {arithmetic}"
+
+    except ValueError as value:
+        return f"ValueError: {value}"
