@@ -1,29 +1,38 @@
 """
-Module to communicate with the user. It displays information, and gets user input.
-This module supports communication with the user throw the terminal (ordinary input output)
+Module to communicate with the user. It displays and styles information, and gets user input.
+This module supports communication with the user throw the terminal (basic input output).
 """
 
 __all__ = ["get_equation", "display_welcome_msg", "display_info", "display_result"]
 
-WELCOME_MSG = """
-------------------------------------------------------------\n
-Welcome to the ADVANCED OMEGA CALCULATOR!\n
-This calculator supports the following operations:\n
-\t +: addition, in form of <operand>+<operand>\n
-\t -: submission, in form of <operand>-<operand>\n
-\t *: multiplication, in form of <operand>*<operand>\n
-\t /: division, in form of <operand>/<operand>\n
-\t ^: power, in form of <operand>^<operand>\n
-\t $: maximum, in form of <operand>$<operand>\n
-\t &: minimum, in form of <operand>&<operand>\n
-\t @: average, in form of <operand>@<operand>\n
-\t %: module, in form of <operand>%<operand>\n
-\t ~: negative, in form of ~<operand>\n
-\t !: factorial, in form of <operand>!\n
-\t #: sum digits, in form of <operand>#\n
-\n
-To display the menu again, please enter: Menu\n
-To exit, please enter: EXIT\n
+# dictionary to define styles to implement in output string
+STYLES = {"blue": "\033[94m",
+          "cyan": "\033[96m",
+          "green": "\033[92m",
+          "yellow": "\033[93m",
+          "red": "\033[91m",
+          "bold": "\033[1m",
+          "underline": "\033[4m",
+          "end_style": "\033[0m"}
+
+# the welcome message (also the menu)
+WELCOME_MSG = f"""
+{STYLES["underline"]}{STYLES["blue"]}Welcome to the ADVANCED OMEGA CALCULATOR!{STYLES["end_style"]}\n
+{STYLES["cyan"]}This calculator supports the following operations:{STYLES["end_style"]}\n
+\t +: addition, in form of {STYLES["cyan"]}<operand>+<operand>{STYLES["end_style"]}\n
+\t -: submission, in form of {STYLES["cyan"]}<operand>-<operand>{STYLES["end_style"]}\n
+\t *: multiplication, in form of {STYLES["cyan"]}<operand>*<operand>{STYLES["end_style"]}\n
+\t /: division, in form of {STYLES["cyan"]}<operand>/<operand>{STYLES["end_style"]}\n
+\t ^: power, in form of {STYLES["cyan"]}<operand>^<operand>{STYLES["end_style"]}\n
+\t $: maximum, in form of {STYLES["cyan"]}<operand>$<operand>{STYLES["end_style"]}\n
+\t &: minimum, in form of {STYLES["cyan"]}<operand>&<operand>{STYLES["end_style"]}\n
+\t @: average, in form of {STYLES["cyan"]}<operand>@<operand>{STYLES["end_style"]}\n
+\t %: module, in form of {STYLES["cyan"]}<operand>%<operand>{STYLES["end_style"]}\n
+\t ~: negative, in form of {STYLES["cyan"]}~<operand>{STYLES["end_style"]}\n
+\t !: factorial, in form of {STYLES["cyan"]}<operand>!{STYLES["end_style"]}\n
+\t #: sum digits, in form of {STYLES["cyan"]}<operand>#{STYLES["end_style"]}\n
+To display the menu again, please enter: {STYLES["blue"]}MENU{STYLES["end_style"]}\n
+To exit, please enter: {STYLES["yellow"]}EXIT{STYLES["end_style"]}\n
 ------------------------------------------------------------\n
 """
 
@@ -37,7 +46,7 @@ def get_input(msg: str) -> str:
     try:
         return input(msg)
     except (EOFError, KeyboardInterrupt) as e:
-        display_info(f"{e} ---> exiting program...")
+        display_info(f"{STYLES['yellow']}{e} ---> exiting program...{STYLES['end_style']}")
         exit(0)
 
 
@@ -46,7 +55,7 @@ def get_equation() -> str:
     This function asks the user to enter an equation, and returns the users equation input.
     :return: The users equation string input.
     """
-    return get_input("\nPlease enter your equation: ")
+    return get_input("Please enter your equation: ")
 
 
 def display_welcome_msg():
@@ -73,7 +82,7 @@ def display_solution(equation: str, solution: float):
     :param solution: The equation's solution.
     :return: None.
     """
-    display_info(f"{equation} = {solution}")
+    display_info(f"{STYLES['green']}{equation} = {solution}{STYLES['end_style']}")
 
 
 def display_exception(equation: str, exception: str):
@@ -83,8 +92,8 @@ def display_exception(equation: str, exception: str):
     :param exception: Exception message.
     :return: None.
     """
-    display_info(f"{equation} ---> {exception}")
-    get_input("\npress ENTER to continue...\n")
+    display_info(f"{STYLES['red']}{equation} ---> {exception}{STYLES['end_style']}")
+    get_input(f"\npress {STYLES['bold']}ENTER{STYLES['end_style']} to continue...")
 
 
 # dictionary to match result type with the matching presentation format
